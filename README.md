@@ -24,6 +24,7 @@ Start the server by running the following command:
     python server.py [num_clients] [timeout]
     
 > Replace [num_clients] with the desired number of clients the server can respond to.
+
 > Replace [timeout] with the timeout time for the server's listening socket (in seconds).
 
 Open another terminal window.
