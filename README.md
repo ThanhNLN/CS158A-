@@ -7,9 +7,8 @@ Clients can interact with the server to perform various file system operations s
 
 
 ## Files
-server.py: Contains the code for the server component of the application.
-
-client.py: Contains the code for the client component of the application.
+* server.py: Contains the code for the server component of the application.
+* client.py: Contains the code for the client component of the application.
 
 
 ## Dependencies
@@ -22,9 +21,7 @@ Open a terminal window.
 Navigate to the directory containing the program files.
 Start the server by running the following command:
 
-    ```sh
     python server.py [num_clients] [timeout]
-    ```
     
 > Replace [num_clients] with the desired number of clients the server can respond to.
 > Replace [timeout] with the timeout time for the server's listening socket (in seconds).
@@ -33,9 +30,7 @@ Open another terminal window.
 Navigate to the directory containing the program files.
 Start the client by running the following command:
 
-    ```sh
     python client.py [server_port]
-    ```
     
 > Replace [server_port] with the port number on which the server is listening.
 
