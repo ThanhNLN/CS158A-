@@ -8,6 +8,7 @@ Clients can interact with the server to perform various file system operations s
 
 ## Files
 server.py: Contains the code for the server component of the application.
+
 client.py: Contains the code for the client component of the application.
 
 
