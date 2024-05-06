@@ -21,11 +21,13 @@ This program requires Python 3.12 to be installed on the system.
 Open a terminal window.
 Navigate to the directory containing the program files.
 Start the server by running the following command:
+
     ```sh
     python server.py [num_clients] [timeout]
     ```
-    > Replace [num_clients] with the desired number of clients the server can respond to.
-    > Replace [timeout] with the timeout time for the server's listening socket (in seconds).
+    
+> Replace [num_clients] with the desired number of clients the server can respond to.
+> Replace [timeout] with the timeout time for the server's listening socket (in seconds).
 
 Open another terminal window.
 Navigate to the directory containing the program files.
@@ -34,16 +36,20 @@ Start the client by running the following command:
     ```sh
     python client.py [server_port]
     ```
-    > Replace [server_port] with the port number on which the server is listening.
-
+    
+> Replace [server_port] with the port number on which the server is listening.
 
 ## Usage
 
 Upon connecting to the server, the client can request and receive the current directory from the server.
 The client can then choose from the following options:
+
     c: Change directory
+    
     l: List directory contents
+    
     f: Create a new file
+    
     q: Quit the program
 
 The client sends each request as a single message to the server and displays the server's response for each request.
