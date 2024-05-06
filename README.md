@@ -1,13 +1,19 @@
 Overview
+
 This program implements a low-level client-server application in Python using sockets. The application consists of two components: a server and a client. The server is capable of handling multiple client connections concurrently. Clients can interact with the server to perform various file system operations such as listing files and directories, changing directories, and creating files.
+
 
 Files
 server.py: Contains the code for the server component of the application.
 client.py: Contains the code for the client component of the application.
+
+
 Dependencies
-This program requires Python 3.x to be installed on the system.
+This program requires Python 3.12 to be installed on the system.
+
 
 How to Run
+
 Open a terminal window.
 Navigate to the directory containing the program files.
 Start the server by running the following command:
@@ -25,7 +31,9 @@ python client.py [server_port]
 
 Replace [server_port] with the port number on which the server is listening.
 
+
 Usage
+
 Upon connecting to the server, the client can request and receive the current directory from the server.
 The client can then choose from the following options:
 c: Change directory
@@ -35,7 +43,9 @@ q: Quit the program
 
 The client sends each request as a single message to the server and displays the server's response for each request.
 
+
 Future Features
+
 Authentication and Authorization: Implement user authentication and authorization mechanisms to control access to server resources.
 File Transfer: Allow clients to upload and download files to and from the server.
 Error Handling: Improve error handling to provide more informative error messages to clients.
