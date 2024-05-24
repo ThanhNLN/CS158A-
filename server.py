@@ -1,6 +1,8 @@
-# Le Ngoc Thanh Nguyen
-# CIS 41B - Lab 5: a simulation of a low-level client-server application
-# File: server
+# SJSU - CS158A
+# Project: TCP server-client 
+# Author: Le Ngoc Thanh Nguyen and Annie Luu
+# Server component of the application.
+
 import os
 import sys
 import socket
@@ -47,25 +49,29 @@ class Server:
 
             for thread in threads:
                 thread.join()
-                #print(thread.is_alive()) # debug
+                # print(thread.is_alive()) # debug
             print("All clients disconnected. Ending program")
+            
     def processClient(self):
         '''Let client run the program'''
         try:
             (conn, addr) = self.S.accept()
             print("Connecting to client at port:", conn.getsockname()[1])
             self.fromClient = pickle.loads(conn.recv(1024))
-            #self.testPrint(addr, self.fromClient)
+            # self.testPrint(addr, self.fromClient)
             self.curDirectories[threading.current_thread().name] = os.getcwd()
-            methodTable = {'g': self.getCurrentDir,
-                           'c': self.changeDir,
-                           'l': os.listdir,
-                           'f': self.createFile}
+            methodTable = {'pwd': self.getCurrentDir,
+                           'cd': self.changeDir,
+                           'ls': os.listdir,
+                           'touch': self.createFile,
+                           'mkdir': self.makeDirectory,
+                           'rmdir': self.removeDir,
+                           'rm': self.removeFile }
 
             while self.fromClient[0] != 'q':
                 self.oriDir()
                 response = methodTable[self.fromClient[0].lower()]()
-                #print(response)         #debug
+                # print(response)         #debug
                 conn.send(pickle.dumps(response))
                 self.fromClient = pickle.loads(conn.recv(1024))
         except socket.timeout:
@@ -114,7 +120,50 @@ class Server:
             f = open(fileName, 'a')
             f.close()
             return 'File created in ' + os.getcwd()
-
+        
+    def makeDirectory(self):
+        '''Create a new directory'''
+        dirName = self.fromClient[1]
+        
+        if os.path.exists(dirName):
+            return 'Directory already exists'
+        else:
+            try:
+                os.makedirs(dirName)
+                return f'Directory {dirName} created'
+            except OSError as e:
+                return f'Error creating directory: {e}'
+        
+    def removeFile(self):
+        '''Remove an existing file'''
+        fileName = self.fromClient[1]
+        
+        if not os.path.exists(fileName):
+            return 'File does not exist'
+        elif os.path.isdir(fileName):
+            return 'Path is a directory, not a file'
+        else:
+            try:
+                os.remove(fileName)
+                return f'File {fileName} removed'
+            except OSError as e:
+                return f'Error removing file: {e}'
+            
+    def removeDir(self):
+        '''Remove an existing directory'''
+        dirName = self.fromClient[1]
+        
+        if not os.path.exists(dirName):
+            return 'Directory does not exist'
+        elif not os.path.isdir(dirName):
+            return 'Path is not a directory'
+        else:
+            try:
+                os.rmdir(dirName)
+                return f'Directory {dirName} removed'
+            except OSError as e:
+                return f'Error removing directory: {e}'
+            
 if __name__ == '__main__':
     try:
         userNum = int(sys.argv[1])
